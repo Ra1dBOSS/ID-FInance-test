@@ -5,6 +5,7 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "pipeline_executions", schema = "public")
@@ -30,8 +31,51 @@ public class PipelineExecution {
     @Column(name = "end_time")
     private Timestamp endTime;
 
-    @GenericGenerator(name = "task_gen", strategy = "foreign")
-    @OneToOne(fetch = FetchType.EAGER)
-    @Column
-    private
+    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Task> tasks;
+
+    public PipelineExecution() {
+
+    }
+
+    public int getExecutionId() {
+        return executionId;
+    }
+
+    public Pipeline getPipeline() {
+        return pipeline;
+    }
+
+    public void setPipeline(Pipeline pipeline) {
+        this.pipeline = pipeline;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
 }

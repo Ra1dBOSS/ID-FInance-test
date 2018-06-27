@@ -28,4 +28,58 @@ public class Pipeline {
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "pipeline", cascade = CascadeType.ALL)
     private PipelineExecution pipelineExecution;
 
+    public Pipeline() {
+
+    }
+
+    public Pipeline(String name, String description, List<Task> tasks, Set<Transition> transitions) {
+        this.name = name;
+        this.description = description;
+        this.tasks = tasks;
+        this.transitions = transitions;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<Transition> getTransitions() {
+        return transitions;
+    }
+
+    public void setTransitions(Set<Transition> transitions) {
+        this.transitions = transitions;
+    }
+
+    public PipelineExecution getPipelineExecution() {
+        return pipelineExecution;
+    }
+
+    public void setPipelineExecution(PipelineExecution pipelineExecution) {
+        this.pipelineExecution = pipelineExecution;
+    }
 }

@@ -1,7 +1,7 @@
 package com.finance.testproject.model;
 
-public class Action {
+public enum  Action {
 
-    private String type;
+    print, random, completed, delay
 
 }

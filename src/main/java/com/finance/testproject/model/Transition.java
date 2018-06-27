@@ -3,30 +3,21 @@ package com.finance.testproject.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tasks", schema = "public")
-public class Task {
+@Table(name = "transitions", schema = "public")
+public class Transition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column
-    private String name;
+    private String source;
 
     @Column
-    private String description;
-
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Action action;
+    private String target;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pipline_id", nullable = false)
     private Pipeline pipeline;
-
-    @Enumerated(EnumType.STRING)
-    @Column
-    private Status status;
-
 
 }

@@ -53,10 +53,4 @@ public class PipelineServiceTest {
         assertEquals(pipeline, pipeline1);
     }
 
-    @Test
-    public void findPipeline() {
-        createPipeline();
-
-    }
-
 }

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tasks", schema = "public")
+@Table(name = "tasks")
 public class Task {
 
     @Id
@@ -23,12 +23,8 @@ public class Task {
     private Action action;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pipline_id", nullable = false)
+    @JoinColumn(name = "pipeline_id", nullable = false)
     private Pipeline pipeline;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "execution_id", nullable = false)
-    private PipelineExecution pipelineExecutione;
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -90,14 +86,6 @@ public class Task {
         this.pipeline = pipeline;
     }
 
-    public PipelineExecution getPipelineExecutione() {
-        return pipelineExecutione;
-    }
-
-    public void setPipelineExecutione(PipelineExecution pipelineExecutione) {
-        this.pipelineExecutione = pipelineExecutione;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -127,15 +115,12 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id &&
-                Objects.equals(name, task.name) &&
-                Objects.equals(description, task.description) &&
-                action == task.action;
+        return id == task.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, description, action);
+        return Objects.hash(id);
     }
 }

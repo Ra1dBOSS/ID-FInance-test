@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "pipelines", schema = "public")
+@Table(name = "pipelines")
 public class Pipeline {
 
     @Id
@@ -25,9 +25,6 @@ public class Pipeline {
     @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Transition> transitions;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "pipeline", cascade = CascadeType.ALL)
-    private PipelineExecution pipelineExecution;
-
     public Pipeline() {
 
     }
@@ -36,11 +33,19 @@ public class Pipeline {
         this.name = name;
         this.description = description;
         this.tasks = tasks;
+        for (Task x : tasks)
+            x.setPipeline(this);
         this.transitions = transitions;
+        for (Transition x : transitions)
+            x.setPipeline(this);
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -75,11 +80,4 @@ public class Pipeline {
         this.transitions = transitions;
     }
 
-    public PipelineExecution getPipelineExecution() {
-        return pipelineExecution;
-    }
-
-    public void setPipelineExecution(PipelineExecution pipelineExecution) {
-        this.pipelineExecution = pipelineExecution;
-    }
 }

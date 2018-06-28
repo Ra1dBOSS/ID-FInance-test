@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "pipeline_executions", schema = "public")
+@Table(name = "pipeline_executions")
 public class PipelineExecution {
 
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "pipeline"))

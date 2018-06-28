@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "transitions", schema = "public")
+@Table(name = "transitions")
 public class Transition {
 
     @Id
@@ -18,17 +18,16 @@ public class Transition {
     private String target;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pipline_id", nullable = false)
+    @JoinColumn(name = "pipeline_id", nullable = false)
     private Pipeline pipeline;
 
     public Transition() {
 
     }
 
-    public Transition(String source, String target, Pipeline pipeline) {
+    public Transition(String source, String target) {
         this.source = source;
         this.target = target;
-        this.pipeline = pipeline;
     }
 
     public int getId() {
@@ -47,19 +46,22 @@ public class Transition {
         return pipeline;
     }
 
+    public void setPipeline(Pipeline pipeline) {
+        this.pipeline = pipeline;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transition that = (Transition) o;
-        return id == that.id &&
-                Objects.equals(source, that.source) &&
+        return Objects.equals(source, that.source) &&
                 Objects.equals(target, that.target);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, source, target);
+        return Objects.hash(source, target);
     }
 }

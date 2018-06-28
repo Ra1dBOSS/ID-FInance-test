@@ -2,6 +2,7 @@ package com.finance.testproject.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -82,4 +83,17 @@ public class Pipeline {
         this.transitions = transitions;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pipeline pipeline = (Pipeline) o;
+        return id == pipeline.id;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 }

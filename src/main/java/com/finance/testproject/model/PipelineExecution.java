@@ -6,6 +6,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pipeline_executions")
@@ -88,5 +89,19 @@ public class PipelineExecution {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PipelineExecution that = (PipelineExecution) o;
+        return executionId == that.executionId;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(executionId);
     }
 }

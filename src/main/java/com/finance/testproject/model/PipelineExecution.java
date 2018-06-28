@@ -31,11 +31,19 @@ public class PipelineExecution {
     @Column(name = "end_time")
     private Timestamp endTime;
 
-    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
+            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Task> tasks;
 
     public PipelineExecution() {
 
+    }
+
+    public PipelineExecution(Pipeline pipeline, Status status) {
+        this.pipeline = pipeline;
+        this.status = status;
+        this.tasks = pipeline.getTasks();
+        this.startTime = new Timestamp(System.currentTimeMillis());
     }
 
     public int getExecutionId() {
@@ -78,4 +86,7 @@ public class PipelineExecution {
         return tasks;
     }
 
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 }

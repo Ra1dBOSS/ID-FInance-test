@@ -19,10 +19,12 @@ public class Pipeline {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
+            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
+            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     private Set<Transition> transitions;
 
     public Pipeline() {

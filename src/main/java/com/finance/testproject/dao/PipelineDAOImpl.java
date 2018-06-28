@@ -36,6 +36,6 @@ public class PipelineDAOImpl implements PipelineDAO {
 
     @Override
     public void deletePipeline(int id) {
-
+        entityManager.refresh(getPipelineById(id));
     }
 }

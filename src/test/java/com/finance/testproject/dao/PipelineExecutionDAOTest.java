@@ -1,9 +1,6 @@
 package com.finance.testproject.dao;
 
-import com.finance.testproject.model.Action;
-import com.finance.testproject.model.Pipeline;
-import com.finance.testproject.model.Task;
-import com.finance.testproject.model.Transition;
+import com.finance.testproject.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,12 +17,12 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PipelineDAOTest {
+public class PipelineExecutionDAOTest {
 
     @Autowired
-    private PipelineDAO pipelineDAO;
+    private PipelineExecutionDAO pipelineExecutionDAO;
 
-    private Pipeline pipeline;
+    private PipelineExecution pipelineExecution;
 
     @Before
     public void setUp() throws Exception {
@@ -41,30 +38,32 @@ public class PipelineDAOTest {
         transitions.add(new Transition("test task name1", "test task name3"));
         transitions.add(new Transition("test task name2", "test task name3"));
 
-        pipeline = new Pipeline("Test name", "Test pipeline", tasks, transitions);
+        Pipeline pipeline = new Pipeline("Test name", "Test pipeline", tasks, transitions);
+
+        pipelineExecution = new PipelineExecution(pipeline, Status.IN_PROGRESS);
     }
 
     @Test
-    public void getPipelineById() {
-        pipelineDAO.addPipeline(pipeline);
-        pipeline = pipelineDAO.getPipelineById(pipeline.getId());
+    public void getPipelineExecutionById() {
+        pipelineExecutionDAO.addPipelineExecution(pipelineExecution);
+        pipelineExecution = pipelineExecutionDAO.getPipelineExecutionById(pipelineExecution.getExecutionId());
     }
 
     @Test
-    public void addPipeline() {
-        pipelineDAO.addPipeline(pipeline);
+    public void addPipelineExecution() {
+        pipelineExecutionDAO.addPipelineExecution(pipelineExecution);
     }
 
     @Test
-    public void updatePipeline() {
-        pipelineDAO.addPipeline(pipeline);
-        pipeline.setDescription("updated desription");
-        pipelineDAO.updatePipeline(pipeline);
+    public void updatePipelineExecution() {
+        pipelineExecutionDAO.addPipelineExecution(pipelineExecution);
+        pipelineExecution.setStatus(Status.FAILED);
+        pipelineExecutionDAO.updatePipelineExecution(pipelineExecution);
     }
 
     @Test
-    public void deletePipeline() {
-        pipelineDAO.addPipeline(pipeline);
-        pipelineDAO.deletePipeline(pipeline.getId());
+    public void deletePipelineExecution() {
+        pipelineExecutionDAO.addPipelineExecution(pipelineExecution);
+        pipelineExecutionDAO.deletePipelineExecution(pipelineExecution.getExecutionId());
     }
 }

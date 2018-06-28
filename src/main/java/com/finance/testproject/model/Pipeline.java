@@ -1,5 +1,7 @@
 package com.finance.testproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Pipeline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pipeline_id", nullable = false, unique = true)
+    @JsonIgnore
     private int id;
 
     @Column(name="name")

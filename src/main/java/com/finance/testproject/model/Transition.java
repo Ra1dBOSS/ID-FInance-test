@@ -1,5 +1,7 @@
 package com.finance.testproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ public class Transition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private int id;
 
     @Column
@@ -19,6 +22,7 @@ public class Transition {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pipeline_id", nullable = false)
+    @JsonIgnore
     private Pipeline pipeline;
 
     public Transition() {

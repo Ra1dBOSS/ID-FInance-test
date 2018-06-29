@@ -17,11 +17,9 @@ public class PipelineController {
     @Autowired
     private PipelineService pipelineService;
 
-
-//    @RequestMapping(method = RequestMethod.POST, value="/yaml", consumes="application/yaml")
     @RequestMapping(
             value = "/yaml",
-            consumes = "aplication/yaml",
+            consumes = "application/x-yaml",
 //            produces = MediaType.TEXT_PLAIN_VALUE,
             method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)

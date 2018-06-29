@@ -1,6 +1,9 @@
 package com.finance.testproject.thread;
 
+import com.finance.testproject.dao.PipelineExecutionDAO;
 import com.finance.testproject.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
@@ -9,6 +12,9 @@ public class ExecutionThread extends Thread {
     private PipelineExecution pipelineExecution;
 
     private Pipeline pipeline;
+
+    @Autowired
+    PipelineExecutionDAO pipelineExecutionDAO;
 
     public ExecutionThread(Pipeline pipeline) {
         this.pipelineExecution = new PipelineExecution(pipeline, null);
@@ -46,5 +52,6 @@ public class ExecutionThread extends Thread {
                 }
             }
         }
+        pipelineExecutionDAO.addPipelineExecution(pipelineExecution);
     }
 }

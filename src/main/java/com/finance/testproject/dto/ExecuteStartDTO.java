@@ -3,7 +3,7 @@ package com.finance.testproject.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ExecuteStartTO {
+public class ExecuteStartDTO {
 
     @JsonProperty("pipeline name")
     private String pipelineName;

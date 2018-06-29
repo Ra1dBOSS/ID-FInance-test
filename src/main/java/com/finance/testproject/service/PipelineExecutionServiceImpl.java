@@ -10,10 +10,10 @@ public class PipelineExecutionServiceImpl implements PipelineExecutionService {
     Thread executionThread;
 
     @Override
-    public ExecutionThread executePipeline(Pipeline pipeline) {
+    public PipelineExecution executePipeline(Pipeline pipeline) {
         ExecutionThread executionThread = new ExecutionThread(pipeline);
         executionThread.start();
-        return executionThread;
+        return executionThread.getPipelineExecution();
     }
 
     @Override

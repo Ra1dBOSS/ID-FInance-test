@@ -6,6 +6,7 @@ import com.finance.testproject.service.PipelineService;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,6 +16,21 @@ public class PipelineController {
 
     @Autowired
     private PipelineService pipelineService;
+
+
+//    @RequestMapping(method = RequestMethod.POST, value="/yaml", consumes="application/yaml")
+    @RequestMapping(
+            value = "/yaml",
+            consumes = "aplication/yaml",
+//            produces = MediaType.TEXT_PLAIN_VALUE,
+            method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public String create(@RequestBody PipelineDTO pipelineDTO) {
+        System.out.printf("In handleRequest method, employee: ", pipelineDTO);
+        String s = String.format("PipelineDTO saved: " + pipelineDTO.getName());
+        System.out.println(s);
+        return s;
+    }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)

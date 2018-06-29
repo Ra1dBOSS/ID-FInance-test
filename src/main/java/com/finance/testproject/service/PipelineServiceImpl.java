@@ -19,13 +19,24 @@ public class PipelineServiceImpl implements PipelineService {
     @Override
     public Pipeline createPipeline(String name, String description, List<Task> tasks, Set<Transition> transactions) {
         Pipeline pipeline = new Pipeline(name, description, tasks, transactions);
-        pipelineDAO.addPipeline(pipeline);
+        List<Pipeline> pipelines = pipelineDAO.getPipelineByName(name);
+        if (pipelines.size() == 0) {
+            pipelineDAO.addPipeline(pipeline);
+        } else {
+            pipeline = pipelines.get(0);
+        }
         return pipeline;
     }
 
     @Override
     public Pipeline findPipeline(int id) {
         return pipelineDAO.getPipelineById(id);
+    }
+
+    @Override
+    public Pipeline findPipelineByName(String name) {
+        List<Pipeline> pipelines = pipelineDAO.getPipelineByName(name);
+        return pipelines.get(0);
     }
 
     @Override

@@ -23,12 +23,12 @@ public class Pipeline {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
-            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "pipeline", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH
+            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
-            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "pipeline", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH
+            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     private Set<Transition> transitions;
 
     public Pipeline() {
@@ -91,12 +91,12 @@ public class Pipeline {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pipeline pipeline = (Pipeline) o;
-        return id == pipeline.id;
+        return Objects.equals(name, pipeline.name);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id);
+        return Objects.hash(name);
     }
 }

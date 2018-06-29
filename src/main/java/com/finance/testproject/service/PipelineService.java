@@ -13,6 +13,8 @@ public interface PipelineService {
 
     Pipeline findPipeline(int id);
 
+    Pipeline findPipelineByName(String name);
+
     void deletePipeline(int id);
 
     void updatePipeline(Pipeline pipeline);

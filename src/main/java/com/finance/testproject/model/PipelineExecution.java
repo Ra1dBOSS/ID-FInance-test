@@ -33,7 +33,7 @@ public class PipelineExecution {
     private Timestamp endTime;
 
     @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
-            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+            , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Task> tasks;
 
     public PipelineExecution() {

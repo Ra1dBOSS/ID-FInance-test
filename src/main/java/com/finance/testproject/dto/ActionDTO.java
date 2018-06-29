@@ -1,9 +1,15 @@
 package com.finance.testproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.finance.testproject.model.Action;
 
 public class ActionDTO {
+
     private String type;
+
+    public ActionDTO() {
+
+    }
 
     public ActionDTO(Action action) {
         switch (action) {
@@ -26,6 +32,7 @@ public class ActionDTO {
         }
     }
 
+    @JsonIgnore
     public Action getAsAction() {
         switch (type) {
             case "completed": {

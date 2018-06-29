@@ -1,21 +1,26 @@
 package com.finance.testproject.dto;
 
-import com.finance.testproject.model.Action;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.finance.testproject.model.Task;
 
 public class TaskDTO {
     private String name;
-    private String desription;
+    private String description;
     private ActionDTO action;
+
+    public TaskDTO() {
+
+    }
 
     public TaskDTO(Task task) {
         this.name = task.getName();
-        this.desription = task.getDescription();
+        this.description = task.getDescription();
         this.action = new ActionDTO(task.getAction());
     }
 
+    @JsonIgnore
     public Task getAsTask() {
-        return new Task(name, desription, action.getAsAction());
+        return new Task(name, description, action.getAsAction());
     }
 
     public String getName() {
@@ -26,12 +31,12 @@ public class TaskDTO {
         this.name = name;
     }
 
-    public String getDesription() {
-        return desription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesription(String desription) {
-        this.desription = desription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public ActionDTO getAction() {

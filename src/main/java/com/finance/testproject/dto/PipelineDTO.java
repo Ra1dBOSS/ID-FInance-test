@@ -1,5 +1,6 @@
 package com.finance.testproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.finance.testproject.model.Action;
 import com.finance.testproject.model.Pipeline;
 import com.finance.testproject.model.Task;
@@ -17,6 +18,10 @@ public class PipelineDTO {
     private TaskDTO[] tasks;
     private Transition[] transitions;
 
+    public PipelineDTO() {
+
+    }
+
     public PipelineDTO(Pipeline pipeline) {
         this.name = pipeline.getName();
         this.description = pipeline.getDescription();
@@ -24,6 +29,12 @@ public class PipelineDTO {
         int i = 0;
         for (Task x : pipeline.getTasks()) {
             this.tasks[i] = new TaskDTO(x);
+            i++;
+        }
+        i = 0;
+        this.transitions = new Transition[pipeline.getTransitions().size()];
+        for (Transition x : pipeline.getTransitions()) {
+            this.transitions[i] = x;
             i++;
         }
     }
@@ -52,6 +63,7 @@ public class PipelineDTO {
         this.tasks = tasks;
     }
 
+    @JsonIgnore
     public List<Task> getTasksAsList() {
         List<Task> ret = new ArrayList<>(tasks.length);
         for (TaskDTO x : tasks)
@@ -67,6 +79,7 @@ public class PipelineDTO {
         this.transitions = transitions;
     }
 
+    @JsonIgnore
     public Set<Transition> getTransitionsAsSet() {
         Set<Transition> ret = new HashSet<>();
         for (Transition x : transitions)

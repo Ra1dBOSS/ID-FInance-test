@@ -51,6 +51,14 @@ public class PipelineDAOTest {
     }
 
     @Test
+    public void getPipelineByName() {
+        pipelineDAO.addPipeline(pipeline);
+        List<Pipeline> pipelines = pipelineDAO.getPipelineByName(pipeline.getName());
+        for (Pipeline x : pipelines)
+            assertEquals(x.getName(), pipeline.getName());
+    }
+
+    @Test
     public void addPipeline() {
         pipelineDAO.addPipeline(pipeline);
     }

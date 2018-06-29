@@ -1,23 +1,16 @@
 package com.finance.testproject.controller;
 
-import com.finance.testproject.dao.PipelineDAO;
 import com.finance.testproject.dto.PipelineDTO;
-import com.finance.testproject.model.Action;
 import com.finance.testproject.model.Pipeline;
-import com.finance.testproject.model.Task;
-import com.finance.testproject.model.Transition;
 import com.finance.testproject.service.PipelineService;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/pipeline")
 public class PipelineController {
 
     @Autowired
@@ -25,16 +18,36 @@ public class PipelineController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Pipeline createPipeline(@RequestBody PipelineDTO pipelineDTO) {
-        return pipelineService.createPipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
+    public PipelineDTO createPipeline(@RequestBody PipelineDTO pipelineDTO) {
+        Pipeline pipeline = pipelineService.createPipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
                 , pipelineDTO.getTasksAsList(), pipelineDTO.getTransitionsAsSet());
+        return new PipelineDTO(pipeline);
     }
 
-    @GetMapping
+    @GetMapping("/{name}")
     @ResponseStatus(value = HttpStatus.OK)
-    public PipelineDTO readPipeline() {
+    public PipelineDTO readPipeline(@PathVariable("name") String name) {
+        Pipeline pipeline = pipelineService.findPipelineByName(name);
+        PipelineDTO pipelineDTO = new PipelineDTO(pipeline);
+        return pipelineDTO;
+    }
 
-        return null;
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public PipelineDTO updatePipeline(@RequestBody PipelineDTO pipelineDTO) {
+        Pipeline pipeline = new Pipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
+                , pipelineDTO.getTasksAsList(), pipelineDTO.getTransitionsAsSet());
+        pipeline.setId(pipelineService.findPipelineByName(pipeline.getName()).getId());
+        pipelineService.updatePipeline(pipeline);
+        pipelineDTO = new PipelineDTO(pipeline);
+        return pipelineDTO;
+    }
+
+    @DeleteMapping("/{name}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePipeline(@PathVariable("name") String name) {
+        Pipeline pipeline = pipelineService.findPipelineByName(name);
+        pipelineService.deletePipeline(pipeline.getId());
     }
 
 }

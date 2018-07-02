@@ -19,10 +19,7 @@ public class PipelineController {
 
     @RequestMapping(
             value = "/yaml",
-            consumes = "application/x-yaml",
-//            produces = MediaType.TEXT_PLAIN_VALUE,
             method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
     public String create(@RequestBody PipelineDTO pipelineDTO) {
         System.out.printf("In handleRequest method, employee: ", pipelineDTO);
         String s = String.format("PipelineDTO saved: " + pipelineDTO.getName());

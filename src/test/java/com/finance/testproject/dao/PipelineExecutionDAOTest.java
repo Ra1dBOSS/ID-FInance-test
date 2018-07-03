@@ -32,7 +32,7 @@ public class PipelineExecutionDAOTest {
         tasks.add(new Task("test task name2", "test task description2", Action.random));
         tasks.add(new Task("test task name3", "test task description3", Action.completed));
 
-        Set<Transition> transitions = new HashSet<>();
+        List<Transition> transitions = new ArrayList<>();
         transitions.add(new Transition("test task name", "test task name1"));
         transitions.add(new Transition("test task name", "test task name2"));
         transitions.add(new Transition("test task name1", "test task name3"));

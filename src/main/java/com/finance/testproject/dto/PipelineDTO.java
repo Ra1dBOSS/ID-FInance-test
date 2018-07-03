@@ -80,8 +80,8 @@ public class PipelineDTO {
     }
 
     @JsonIgnore
-    public Set<Transition> getTransitionsAsSet() {
-        Set<Transition> ret = new HashSet<>();
+    public List<Transition> getTransitionsAsList() {
+        List<Transition> ret = new ArrayList<>(transitions.length);
         for (Transition x : transitions)
             ret.add(x);
         return ret;

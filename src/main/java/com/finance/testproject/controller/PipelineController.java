@@ -31,7 +31,7 @@ public class PipelineController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public PipelineDTO createPipeline(@RequestBody PipelineDTO pipelineDTO) {
         Pipeline pipeline = pipelineService.createPipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
-                , pipelineDTO.getTasksAsList(), pipelineDTO.getTransitionsAsSet());
+                , pipelineDTO.getTasksAsList(), pipelineDTO.getTransitionsAsList());
         return new PipelineDTO(pipeline);
     }
 
@@ -47,7 +47,7 @@ public class PipelineController {
     @ResponseStatus(HttpStatus.OK)
     public PipelineDTO updatePipeline(@RequestBody PipelineDTO pipelineDTO) {
         Pipeline pipeline = new Pipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
-                , pipelineDTO.getTasksAsList(), pipelineDTO.getTransitionsAsSet());
+                , pipelineDTO.getTasksAsList(), pipelineDTO.getTransitionsAsList());
         pipeline.setId(pipelineService.findPipelineByName(pipeline.getName()).getId());
         pipelineService.updatePipeline(pipeline);
         pipelineDTO = new PipelineDTO(pipeline);

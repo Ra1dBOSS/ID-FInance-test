@@ -29,13 +29,13 @@ public class Pipeline {
 
     @OneToMany(mappedBy = "pipeline", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH
             , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
-    private Set<Transition> transitions;
+    private List<Transition> transitions;
 
     public Pipeline() {
 
     }
 
-    public Pipeline(String name, String description, List<Task> tasks, Set<Transition> transitions) {
+    public Pipeline(String name, String description, List<Task> tasks, List<Transition> transitions) {
         this.name = name;
         this.description = description;
         this.tasks = tasks;
@@ -78,11 +78,11 @@ public class Pipeline {
         this.tasks = tasks;
     }
 
-    public Set<Transition> getTransitions() {
+    public List<Transition> getTransitions() {
         return transitions;
     }
 
-    public void setTransitions(Set<Transition> transitions) {
+    public void setTransitions(List<Transition> transitions) {
         this.transitions = transitions;
     }
 

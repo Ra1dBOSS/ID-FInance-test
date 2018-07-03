@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PipelineServiceImpl implements PipelineService {
@@ -17,7 +16,7 @@ public class PipelineServiceImpl implements PipelineService {
     private PipelineDAO pipelineDAO;
 
     @Override
-    public Pipeline createPipeline(String name, String description, List<Task> tasks, Set<Transition> transactions) {
+    public Pipeline createPipeline(String name, String description, List<Task> tasks, List<Transition> transactions) {
         Pipeline pipeline = new Pipeline(name, description, tasks, transactions);
         List<Pipeline> pipelines = pipelineDAO.getPipelineByName(name);
         if (pipelines.size() == 0) {

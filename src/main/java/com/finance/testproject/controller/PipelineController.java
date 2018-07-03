@@ -1,6 +1,7 @@
 package com.finance.testproject.controller;
 
 import com.finance.testproject.dto.PipelineDTO;
+import com.finance.testproject.dto.PipelineDTO_1;
 import com.finance.testproject.model.Pipeline;
 import com.finance.testproject.service.PipelineService;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +21,7 @@ public class PipelineController {
     @RequestMapping(
             value = "/yaml",
             method = RequestMethod.POST)
-    public String create(@RequestBody PipelineDTO pipelineDTO) {
+    public String create(@RequestBody PipelineDTO_1 pipelineDTO) {
         System.out.printf("In handleRequest method, employee: ", pipelineDTO);
         String s = String.format("PipelineDTO saved: " + pipelineDTO.getName());
         System.out.println(s);

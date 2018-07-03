@@ -46,6 +46,18 @@ public class Transition {
         return target;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
     public Pipeline getPipeline() {
         return pipeline;
     }

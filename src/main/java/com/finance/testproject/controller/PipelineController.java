@@ -1,34 +1,24 @@
 package com.finance.testproject.controller;
 
 import com.finance.testproject.dto.PipelineDTO;
-import com.finance.testproject.dto.PipelineDTO_1;
 import com.finance.testproject.model.Pipeline;
 import com.finance.testproject.service.PipelineService;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 @RestController
-@RequestMapping("/pipeline")
+@RequestMapping(value = "/pipeline", produces = "application/x-yaml")
 public class PipelineController {
 
     @Autowired
     private PipelineService pipelineService;
 
-    @RequestMapping(
-            value = "/yaml",
-            method = RequestMethod.POST)
-    public String create(@RequestBody PipelineDTO_1 pipelineDTO) {
-        System.out.printf("In handleRequest method, employee: ", pipelineDTO);
-        String s = String.format("PipelineDTO saved: " + pipelineDTO.getName());
-        System.out.println(s);
-        return s;
-    }
-
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(value = HttpStatus.CREATED)
     public PipelineDTO createPipeline(@RequestBody PipelineDTO pipelineDTO) {
         Pipeline pipeline = pipelineService.createPipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
@@ -36,7 +26,7 @@ public class PipelineController {
         return new PipelineDTO(pipeline);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/read/{name}")
     @ResponseStatus(value = HttpStatus.OK)
     public PipelineDTO readPipeline(@PathVariable("name") String name) {
         Pipeline pipeline = pipelineService.findPipelineByName(name);
@@ -44,7 +34,7 @@ public class PipelineController {
         return pipelineDTO;
     }
 
-    @PutMapping
+    @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
     public PipelineDTO updatePipeline(@RequestBody PipelineDTO pipelineDTO) {
         Pipeline pipeline = new Pipeline(pipelineDTO.getName(), pipelineDTO.getDescription()
@@ -55,7 +45,7 @@ public class PipelineController {
         return pipelineDTO;
     }
 
-    @DeleteMapping("/{name}")
+    @DeleteMapping("/delete/{name}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePipeline(@PathVariable("name") String name) {
         Pipeline pipeline = pipelineService.findPipelineByName(name);

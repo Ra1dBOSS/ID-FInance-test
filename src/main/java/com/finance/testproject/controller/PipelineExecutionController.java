@@ -1,9 +1,7 @@
 package com.finance.testproject.controller;
 
 
-import com.finance.testproject.dto.ExecuteStartDTO;
 import com.finance.testproject.dto.PipelineExecutionDTO;
-import com.finance.testproject.model.Pipeline;
 import com.finance.testproject.model.PipelineExecution;
 import com.finance.testproject.service.PipelineExecutionService;
 import com.finance.testproject.service.PipelineService;
@@ -11,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
-@RequestMapping("/execution")
+@RequestMapping(value = "/pipeline_execution", produces = "application/x-yaml")
 public class PipelineExecutionController {
 
     @Autowired
@@ -21,11 +21,10 @@ public class PipelineExecutionController {
     @Autowired
     private PipelineService pipelineService;
 
-    @PostMapping("/start")
-    @ResponseStatus(HttpStatus.OK)
-    public PipelineExecutionDTO executePipeline(@RequestBody ExecuteStartDTO executeStartDTO) {
-        Pipeline pipeline = pipelineService.findPipelineByName(executeStartDTO.getPipelineName());
-        PipelineExecution pipelineExecution = pipelineExecutionService.executePipeline(pipeline);
+    @PostMapping("/execute/{name}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public PipelineExecutionDTO executePipeline(@PathVariable String name) {
+        PipelineExecution pipelineExecution = pipelineExecutionService.executePipeline(name);
         PipelineExecutionDTO pipelineExecutionDTO = new PipelineExecutionDTO(pipelineExecution);
         return pipelineExecutionDTO;
     }

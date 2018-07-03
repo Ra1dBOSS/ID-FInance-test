@@ -2,7 +2,7 @@ package com.finance.testproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.finance.testproject.deserializator.ActionDeserializer;
+import com.finance.testproject.deserializer.ActionDeserializer;
 import com.finance.testproject.model.Action;
 
 @JsonDeserialize(using = ActionDeserializer.class)

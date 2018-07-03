@@ -6,7 +6,7 @@ import com.finance.testproject.thread.ExecutionThread;
 
 public interface PipelineExecutionService {
 
-    PipelineExecution executePipeline(Pipeline pipeline);
+    PipelineExecution executePipeline(String name);
 
     PipelineExecution showPipelineExecutionStatus(Pipeline pipeline);
 

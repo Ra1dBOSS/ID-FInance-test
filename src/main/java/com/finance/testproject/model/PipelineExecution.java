@@ -5,6 +5,7 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,9 +13,8 @@ import java.util.Objects;
 @Table(name = "pipeline_executions")
 public class PipelineExecution {
 
-    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "pipeline"))
     @Id
-    @GeneratedValue(generator = "generator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "execution_id", unique = true, nullable = false)
     private int executionId;
 
@@ -32,7 +32,7 @@ public class PipelineExecution {
     @Column(name = "end_time")
     private Timestamp endTime;
 
-    @OneToMany(mappedBy = "pipeline", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
+    @OneToMany(mappedBy = "pipelineExecution", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH
             , CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Task> tasks;
 
@@ -40,10 +40,15 @@ public class PipelineExecution {
 
     }
 
-    public PipelineExecution(Pipeline pipeline, Status status) {
+    public PipelineExecution(Pipeline pipeline) {
         this.pipeline = pipeline;
-        this.status = status;
-        this.tasks = pipeline.getTasks();
+        this.status = null;
+        this.tasks = new ArrayList<>(pipeline.getTasks().size());
+        for (Task x : pipeline.getTasks()) {
+            Task task = new Task(x.getName(), x.getDescription(), x.getAction());
+            task.setPipelineExecution(this);
+            this.tasks.add(task);
+        }
         this.startTime = new Timestamp(System.currentTimeMillis());
     }
 

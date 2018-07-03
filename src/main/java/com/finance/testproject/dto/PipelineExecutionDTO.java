@@ -8,6 +8,8 @@ import com.finance.testproject.model.Task;
 import com.finance.testproject.model.Transition;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PipelineExecutionDTO {
@@ -61,12 +63,32 @@ public class PipelineExecutionDTO {
         this.status = status;
     }
 
-    public Timestamp getStartTime() {
-        return startTime;
+    public String getStartTime() {
+        if (startTime == null)
+            return null;
+        long batch_date = this.startTime.getTime();
+        Date dt = new Date (batch_date * 1000);
+
+        SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        return sfd.format(dt);
     }
 
     public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        if (endTime == null)
+            return null;
+        long batch_date = this.endTime.getTime();
+        Date dt = new Date (batch_date * 1000);
+
+        SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        return sfd.format(dt);
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     public ExecutedTaskDTO[] getTasks() {

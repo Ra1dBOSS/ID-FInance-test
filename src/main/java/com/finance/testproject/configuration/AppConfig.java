@@ -1,7 +1,10 @@
 package com.finance.testproject.configuration;
 
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import com.finance.testproject.thread.ExecutionThread;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,4 +26,11 @@ public class AppConfig implements WebMvcConfigurer {
         converter.setSupportedMediaTypes(singletonList(MEDIA_TYPE_YAML));
         converters.add(converter);
     }
+
+    @Bean
+    @Scope("prototype")
+    public ExecutionThread executionThreadPrototype() {
+        return new ExecutionThread();
+    }
+
 }

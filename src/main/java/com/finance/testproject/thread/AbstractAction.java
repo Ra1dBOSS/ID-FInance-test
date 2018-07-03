@@ -1,32 +1,38 @@
 package com.finance.testproject.thread;
 
-import com.finance.testproject.model.Pipeline;
-import com.finance.testproject.model.Task;
-import com.finance.testproject.model.Transition;
+import com.finance.testproject.model.*;
 
 public abstract class AbstractAction extends Thread {
 
-    protected Task task;
+    protected volatile Task task;
 
-    protected Pipeline pipeline;
+    protected volatile PipelineExecution pipelineExecution;
 
-    public AbstractAction(Task task, Pipeline pipeline) {
+    protected volatile Pipeline pipeline;
+
+    
+
+    public AbstractAction(Task task, Pipeline pipeline, PipelineExecution pipelineExecution) {
         this.task = task;
         this.pipeline = pipeline;
+        this.pipelineExecution = pipelineExecution;
     }
 
     public Task getTask() {
         return task;
     }
 
-    protected void waitAnotherTasks() {
+    protected void waitAnotherTasks() throws InterruptedException {
         boolean f = true;
         while (f) {
             f = false;
             for (Transition x : pipeline.getTransitions()) {
                 if (x.getTarget().equals(task.getName())) {
-                    for (Task t : pipeline.getTasks()) {
-                        if ((t.getName().equals(x.getSource())) || (t.getEndTime() == null)) {
+                    for (Task t : pipelineExecution.getTasks()) {
+                        if ((t.getName().equals(x.getSource())) && (t.getStatus() == Status.FAILED)) {
+                            throw new InterruptedException();
+                        }
+                        if ((t.getName().equals(x.getSource())) && (t.getEndTime() == null)) {
                             f = true;
                             break;
                         }

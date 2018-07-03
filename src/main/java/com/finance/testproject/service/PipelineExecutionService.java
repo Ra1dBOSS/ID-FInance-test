@@ -8,8 +8,8 @@ public interface PipelineExecutionService {
 
     PipelineExecution executePipeline(String name);
 
-    PipelineExecution showPipelineExecutionStatus(Pipeline pipeline);
+    PipelineExecution showPipelineExecutionStatus(int executionId);
 
-    PipelineExecution stopPipelineExecution(Pipeline pipeline);
+    PipelineExecution stopPipelineExecution(int executionId);
 
 }

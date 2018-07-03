@@ -23,8 +23,12 @@ public class Task {
     private Action action;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pipeline_id", nullable = false)
+    @JoinColumn(name = "pipeline_id")
     private Pipeline pipeline;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pipeline_execution_id")
+    private PipelineExecution pipelineExecution;
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -108,6 +112,14 @@ public class Task {
 
     public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
+    }
+
+    public PipelineExecution getPipelineExecution() {
+        return pipelineExecution;
+    }
+
+    public void setPipelineExecution(PipelineExecution pipelineExecution) {
+        this.pipelineExecution = pipelineExecution;
     }
 
     @Override

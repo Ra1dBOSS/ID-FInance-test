@@ -1,9 +1,6 @@
 package com.finance.testproject.service;
 
-import com.finance.testproject.model.Action;
-import com.finance.testproject.model.Pipeline;
-import com.finance.testproject.model.Task;
-import com.finance.testproject.model.Transition;
+import com.finance.testproject.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +50,36 @@ public class PipelineServiceTest {
         assertEquals(pipeline, pipeline1);
     }
 
+    @Test
+    public void findPipelineByName() {
+        createPipeline();
+        Pipeline pipeline1 = pipelineService.findPipelineByName(pipeline.getName());
+        assertEquals(pipeline, pipeline1);
+    }
+
+    @Test
+    public void deletePipeline() {
+        createPipeline();
+        pipelineService.deletePipeline(pipeline.getId());
+    }
+
+    @Test
+    public void updatePipeline() {
+        createPipeline();
+        String name = "Test name";
+        String description = "Test UPDATED disription";
+        List<Task> tasks = new ArrayList<>();
+        List<Transition> transitions = new ArrayList<>();
+
+        pipeline.setName(name);
+        pipeline.setDescription(description);
+        pipeline.setTasks(tasks);
+        pipeline.setTransitions(transitions);
+        pipelineService.updatePipeline(pipeline);
+
+        pipeline = pipelineService.findPipelineByName(pipeline.getName());
+
+        assertEquals(name, pipeline.getName());
+        assertEquals(description, pipeline.getDescription());
+    }
 }

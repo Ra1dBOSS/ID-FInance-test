@@ -19,7 +19,7 @@ public class PipelineExecution {
     private int executionId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "pipeline_id")
     private Pipeline pipeline;
 
     @Enumerated(EnumType.STRING)

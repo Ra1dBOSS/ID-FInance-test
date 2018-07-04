@@ -35,7 +35,7 @@ public class PipelineExecutionController {
     @PostMapping("/stop/{executionId}")
     @ResponseStatus(HttpStatus.OK)
     public PipelineExecutionDTO stopPipelineExecution(@PathVariable int executionId) {
-        PipelineExecution pipelineExecution = pipelineExecutionService.showPipelineExecutionStatus(executionId);
+        PipelineExecution pipelineExecution = pipelineExecutionService.stopPipelineExecution(executionId);
         PipelineExecutionDTO pipelineExecutionDTO = new PipelineExecutionDTO(pipelineExecution);
         return pipelineExecutionDTO;
     }

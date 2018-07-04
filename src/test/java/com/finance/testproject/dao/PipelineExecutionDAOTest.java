@@ -40,7 +40,7 @@ public class PipelineExecutionDAOTest {
 
         Pipeline pipeline = new Pipeline("Test name", "Test pipeline", tasks, transitions);
 
-        pipelineExecution = new PipelineExecution(pipeline, Status.IN_PROGRESS);
+        pipelineExecution = new PipelineExecution(pipeline);
     }
 
     @Test
